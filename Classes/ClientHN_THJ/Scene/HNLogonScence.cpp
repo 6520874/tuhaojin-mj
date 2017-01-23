@@ -156,17 +156,12 @@ void HNLogonScence::onWxLoginFail(std::string kError)
 }
 void HNLogonScence::Button_WeiXinLogon(cocos2d::Ref*,WidgetUserInfo*)
 {
-    HNScenceManager::Instance().InHomeScence();
-    return;
-#if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
-// 	m_kWeiXinUserInfo.openid = "123456";
-// 	m_kWeiXinUserInfo.nickname = "123456";
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 
-
-	std::string kNickName = "grwoing_kkkk";//utility::toString(time(NULL));
+	std::string kNickName = "1234567";
 	m_kWeiXinUserInfo.openid = kNickName;
 	m_kWeiXinUserInfo.nickname = kNickName;
-	m_kWeiXinUserInfo.headimgurl = "http:\\assssssssssssssssssssssss";
+	m_kWeiXinUserInfo.headimgurl = "http://1234567";
 
 	onWxLoginSuccess(m_kWeiXinUserInfo);
 #else

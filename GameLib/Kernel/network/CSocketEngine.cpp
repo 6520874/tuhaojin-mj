@@ -84,7 +84,7 @@ bool CSocketEngine::connect(const char* url, int port)
 {
 	initValue();
 
-	cocos2d::log("Connect %s",url);
+	cocos2d::log("CSocketEngine Connect %s",url);
 
 	return mSocket.connect(url, port) == 0;
 }
@@ -99,6 +99,12 @@ bool CSocketEngine::disconnect()
 	return true;
 }
 
+struct MessageHead {
+    int size;
+    word main;
+    word sub;
+};
+
 /** 发送数据 **/
 bool CSocketEngine::send(int main, int sub, void* data, int dataSize)
 {
@@ -106,16 +112,16 @@ bool CSocketEngine::send(int main, int sub, void* data, int dataSize)
 		return false;
 	//构造数据
 	unsigned char cbDataBuffer[SOCKET_TCP_BUFFER];
-	TCP_Head * pHead = (TCP_Head *)cbDataBuffer;
-	pHead->CommandInfo.wMainCmdID = main;
-	pHead->CommandInfo.wSubCmdID = sub;
+	MessageHead * pHead = (MessageHead *)cbDataBuffer;
+    pHead->size = dataSize + sizeof(MessageHead);
+	pHead->main = main;
+	pHead->sub = sub;
 	if (dataSize > 0)
 	{
-		memcpy(pHead + 1, data, dataSize);
+		memcpy(&cbDataBuffer[sizeof(MessageHead)], data, dataSize);
 	}
-	//加密数据
-	unsigned short wSendSize = EncryptBuffer(cbDataBuffer, sizeof(TCP_Head)+dataSize, sizeof(cbDataBuffer));
-	mSocket.send((const char*)cbDataBuffer, wSendSize);
+    cocos2d::log("CSocketEngine send size:%d, main:%d, sub:%d, data:%s", dataSize, pHead->main, pHead->sub, data);
+	mSocket.send((const char*)cbDataBuffer, pHead->size);
 	return true;
 }
 
