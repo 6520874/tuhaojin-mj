@@ -1,7 +1,7 @@
 #include "HNPrivateScenceBase.h"
 #include "Game/GameLib.h"
 //#include "ClientSC/SCGameManager.h"
-#include "kernel/kernel/server/CServerItem.h"
+#include "Kernel/kernel/server/CServerItem.h"
 
 
 HNPrivateScenceBase::HNPrivateScenceBase()

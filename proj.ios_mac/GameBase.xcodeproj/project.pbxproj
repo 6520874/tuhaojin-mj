@@ -704,8 +704,8 @@
 		8157CD381E2E2A4F0045EE51 /* WidgetManager_QYAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8157CB941E2E2A4E0045EE51 /* WidgetManager_QYAction.cpp */; };
 		8157CD391E2E2A4F0045EE51 /* WidgetScenceXmlParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8157CB951E2E2A4E0045EE51 /* WidgetScenceXmlParse.cpp */; };
 		8157CD3A1E2E2A4F0045EE51 /* WidgetScenceXmlParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8157CB951E2E2A4E0045EE51 /* WidgetScenceXmlParse.cpp */; };
-		8157CD3B1E2E2A4F0045EE51 /* WidgetSkinXMLparse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8157CB971E2E2A4E0045EE51 /* WidgetSkinXMLparse.cpp */; };
-		8157CD3C1E2E2A4F0045EE51 /* WidgetSkinXMLparse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8157CB971E2E2A4E0045EE51 /* WidgetSkinXMLparse.cpp */; };
+		8157CD3B1E2E2A4F0045EE51 /* WidgetSkinXmlParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8157CB971E2E2A4E0045EE51 /* WidgetSkinXmlParse.cpp */; };
+		8157CD3C1E2E2A4F0045EE51 /* WidgetSkinXmlParse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8157CB971E2E2A4E0045EE51 /* WidgetSkinXmlParse.cpp */; };
 		81D1953F1E2E2FDE009FB3ED /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 81D1953E1E2E2FDE009FB3ED /* Info.plist */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -1453,8 +1453,8 @@
 		8157CB941E2E2A4E0045EE51 /* WidgetManager_QYAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WidgetManager_QYAction.cpp; sourceTree = "<group>"; };
 		8157CB951E2E2A4E0045EE51 /* WidgetScenceXmlParse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WidgetScenceXmlParse.cpp; sourceTree = "<group>"; };
 		8157CB961E2E2A4E0045EE51 /* WidgetScenceXmlParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetScenceXmlParse.h; sourceTree = "<group>"; };
-		8157CB971E2E2A4E0045EE51 /* WidgetSkinXMLparse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WidgetSkinXMLparse.cpp; sourceTree = "<group>"; };
-		8157CB981E2E2A4E0045EE51 /* WidgetSkinXMLparse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetSkinXMLparse.h; sourceTree = "<group>"; };
+		8157CB971E2E2A4E0045EE51 /* WidgetSkinXmlParse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WidgetSkinXmlParse.cpp; sourceTree = "<group>"; };
+		8157CB981E2E2A4E0045EE51 /* WidgetSkinXmlParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidgetSkinXmlParse.h; sourceTree = "<group>"; };
 		81D1953E1E2E2FDE009FB3ED /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ios/Info.plist; sourceTree = SOURCE_ROOT; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -2576,8 +2576,8 @@
 				8157CB941E2E2A4E0045EE51 /* WidgetManager_QYAction.cpp */,
 				8157CB951E2E2A4E0045EE51 /* WidgetScenceXmlParse.cpp */,
 				8157CB961E2E2A4E0045EE51 /* WidgetScenceXmlParse.h */,
-				8157CB971E2E2A4E0045EE51 /* WidgetSkinXMLparse.cpp */,
-				8157CB981E2E2A4E0045EE51 /* WidgetSkinXMLparse.h */,
+				8157CB971E2E2A4E0045EE51 /* WidgetSkinXmlParse.cpp */,
+				8157CB981E2E2A4E0045EE51 /* WidgetSkinXmlParse.h */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -3035,7 +3035,7 @@
 				8157CD071E2E2A4F0045EE51 /* weight_a.cpp in Sources */,
 				8157CC7B1E2E2A4F0045EE51 /* lag_wind.cpp in Sources */,
 				8157CBC31E2E2A4E0045EE51 /* SoundFun.cpp in Sources */,
-				8157CD3B1E2E2A4F0045EE51 /* WidgetSkinXMLparse.cpp in Sources */,
+				8157CD3B1E2E2A4F0045EE51 /* WidgetSkinXmlParse.cpp in Sources */,
 				8157C99F1E2E29E20045EE51 /* GlobalUnits.cpp in Sources */,
 				8157C9C31E2E29E20045EE51 /* CGPMessageMission.cpp in Sources */,
 				513875151D0C0A2800A2F16C /* CServerItemFrameSink.cpp in Sources */,
@@ -3124,7 +3124,7 @@
 				8157CD021E2E2A4F0045EE51 /* vad1.cpp in Sources */,
 				8157C9AA1E2E29E20045EE51 /* CGMatchMission.cpp in Sources */,
 				8157CC461E2E2A4E0045EE51 /* extract_l.cpp in Sources */,
-				8157CD3C1E2E2A4F0045EE51 /* WidgetSkinXMLparse.cpp in Sources */,
+				8157CD3C1E2E2A4F0045EE51 /* WidgetSkinXmlParse.cpp in Sources */,
 				513874FC1D0C0A2800A2F16C /* MCWebReq.cpp in Sources */,
 				8157CC701E2E2A4F0045EE51 /* l_comp.cpp in Sources */,
 				8157CC061E2E2A4E0045EE51 /* cor_h_x.cpp in Sources */,

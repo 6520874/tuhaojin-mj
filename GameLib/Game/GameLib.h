@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Game/Widget/WidgetManager.h"
-#include "Game/Widget/WidgetScenceXMLparse.h"
-#include "Game/Widget/WidgetSkinXMLparse.h"
+#include "Game/Widget/WidgetScenceXmlParse.h"
+#include "Game/Widget/WidgetSkinXmlParse.h"
 #include "Game/Widget/WidgetFun.h"
 #include "Game/Script/ActionEx.h"
 #include "Game/Script/ScriptData.h"

@@ -1,9 +1,9 @@
-﻿ <root>
+ <root>
 	<ScriptValueFloat Key="UseWidth" Value="1280"/>
 	<ScriptValueFloat Key="UseHeight" Value="720"/>
 	
 	<ScriptValueStr Key="address" Value="192.168.0.166"/><!--"123.57.77.152"-->
-	<ScriptValueInt Key="Port" Value="8899"/><!--"8300"-->
+	<ScriptValueInt Key="Port" Value="7000"/><!--"8300"-->
 	<ScriptValueStr Key="Host" Value=""/><!-- 123.57.77.152  115.28.201.146 Script/HNMJ/GameScence.xml-->
 	<ScriptValueStr Key="PCImei" Value="17"/>
 	

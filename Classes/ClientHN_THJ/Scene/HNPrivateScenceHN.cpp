@@ -2,7 +2,7 @@
 #include "HNScenceManager.h"
 #include "Game/GameLib.h"
 //#include "ClientSC/SCGameManager.h"
-#include "kernel/kernel/server/CServerItem.h"
+#include "Kernel/kernel/server/CServerItem.h"
 
 FV_SINGLETON_STORAGE(HNPrivateScenceHN);
 

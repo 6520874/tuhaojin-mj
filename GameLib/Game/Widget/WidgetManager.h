@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "Game/Fv/FvSingleton.h"
+#include "Game/FV/FvSingleton.h"
 #include "WidgetDefine.h"
 #include "ui/UIWidget.h"
 #include "ui/UICheckBox.h"

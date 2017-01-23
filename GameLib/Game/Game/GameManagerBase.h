@@ -6,7 +6,7 @@
 
 #include "Kernel/kernel/server/IServerItemSink.h"
 #include "Platform/PFDefine/data/ServerListData.h"
-#include "kernel/kernel/server/CServerItem.h"
+#include "Kernel/kernel/server/CServerItem.h"
 #include "Kernel/kernel/game/IClientKernelSink.h"
 
 class GameManagerBase 

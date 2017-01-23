@@ -3,11 +3,11 @@
 #include "Game/Script/utility.h"
 #include "Game/Script/WindowInfo.h"
 #include "Game/Widget/WidgetManager.h"
-#include "Game/Widget/WidgetScenceXMLparse.h"
+#include "Game/Widget/WidgetScenceXmlParse.h"
 #include "Kernel/socket/Socket.h"
 #include "ClientHN/Scene/HNScenceManager.h"
 #include "Game/Script/ScriptXMLparse.h"
-#include "Game/Widget/WidgetSkinXMLparse.h"
+#include "Game/Widget/WidgetSkinXmlParse.h"
 #include "Game/Widget/WidgetFun.h"
 USING_NS_CC;
 
