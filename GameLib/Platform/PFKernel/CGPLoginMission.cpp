@@ -1,6 +1,7 @@
 #include "cocos2d.h"
 #include "CGPLoginMission.h"
 #include "Tools/tools/Convert.h"
+#include "Json/json.hpp"
 
 #define MISSION_LOGIN_ACCOUNT	1
 #define MISSION_LOGIN_GAMEID	2
@@ -9,6 +10,7 @@
 #define MISSION_SERVER_INFO		5
 #define MISSION_LOGIN_VISITOR	6	
 
+using json = nlohmann::json;
 
 CGPLoginMission::CGPLoginMission(const char* url, int port)
 	: CSocketMission(url, port)
@@ -106,8 +108,15 @@ bool CGPLoginMission::sendLoginAccount(const CMD_GP_LogonAccounts& LoginAccount)
 	tagGlobalUserData * pGlobalUserData=pGlobalUserInfo->GetGlobalUserData();
 	strncpy(pGlobalUserData->szPassword,LoginAccount.szPassword, countarray(pGlobalUserData->szPassword));
 
+    json j ;
+    j["dwPlazaVersion"]=LoginAccount.dwPlazaVersion;
+    j["szAccounts"]=LoginAccount.szAccounts;
+    j["szPassword"]=LoginAccount.szPassword;
+    
+    std::string jsonStr = j.dump();
+    const char* data = jsonStr.c_str();
 	//发送数据
-	send(MDM_GP_LOGON, SUB_GP_LOGON_ACCOUNTS, (void*)&LoginAccount, sizeof(LoginAccount));
+	send(MDM_GP_LOGON, SUB_GP_LOGON_ACCOUNTS, (void*)data, strlen(data));
 	return true;
 }
 
@@ -199,7 +208,6 @@ bool CGPLoginMission::onEventTCPSocketRead(int main, int sub, void* data, int si
 	default:
 		break;
 	}
-	CCAssert(false,"");
 	return false;
 }
 
@@ -232,30 +240,21 @@ bool CGPLoginMission::onSocketSubLogonSuccess(void* data, int size)
 {
 	PLAZZ_PRINTF(("CGPLoginMission::onSocketSubLogonSuccess\n"));
 
-	//登陆成功
-	CMD_GP_LogonSuccess* pData = (CMD_GP_LogonSuccess*)data;
-	//变量定义
-	CGlobalUserInfo * pGlobalUserInfo=CGlobalUserInfo::GetInstance();
-	tagGlobalUserData * pGlobalUserData=pGlobalUserInfo->GetGlobalUserData();
-
-	pGlobalUserData->lUserScore = pData->lUserScore;
-	pGlobalUserData->lUserInsure = pData->lUserInsure;
-	//保存信息
-	pGlobalUserData->wFaceID = pData->wFaceID;
-	pGlobalUserData->cbGender = pData->cbGender;
-	pGlobalUserData->dwUserID =pData->dwUserID;
-	pGlobalUserData->dwGameID = pData->dwGameID;
-	pGlobalUserData->dwSpreaderID = pData->dwSpreaderID;
-	pGlobalUserData->dwExperience =pData->dwExperience;
-	pGlobalUserData->cbInsureEnabled = pData->cbInsureEnabled;
-	strcpy(pGlobalUserData->szNickName, utility::a_u8((char*)pData->szNickName).c_str());
-	strncpy(pGlobalUserData->szAccounts, ((char*)pData->szAccounts), countarray(pGlobalUserData->szAccounts));
-	//金币信息
-	pGlobalUserInfo->upPlayerInfo();
-
-	if (mIGPLoginMissionSink)
-		mIGPLoginMissionSink->onGPLoginSuccess();
-
+    try {
+        
+        json pData = *((json*)data);
+        //变量定义
+        CGlobalUserInfo * pGlobalUserInfo=CGlobalUserInfo::GetInstance();
+        tagGlobalUserData * pGlobalUserData=pGlobalUserInfo->GetGlobalUserData();
+        
+        pGlobalUserData->dwGameID = pData["dwGameID"].get<unsigned>();
+        pGlobalUserInfo->upPlayerInfo();
+        
+        if (mIGPLoginMissionSink)
+            mIGPLoginMissionSink->onGPLoginSuccess();
+    } catch (std::exception& e) {
+        CCLOG("json parse error:%s", e.what());
+    }
 	return true;
 }
 

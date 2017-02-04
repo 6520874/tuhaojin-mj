@@ -3,8 +3,9 @@
 #include "CSocketEngine.h"
 #include <platform/CCCommon.h>
 #include "Platform/PlatformHeader.h"
+#include "Json/json.hpp"
 
-
+using json = nlohmann::json;
 using namespace std;
 //////////////////////////////////////////////////////////////////////////
 
@@ -111,17 +112,16 @@ bool CSocketEngine::send(int main, int sub, void* data, int dataSize)
 	if (!isAlive())
 		return false;
 	//构造数据
-	unsigned char cbDataBuffer[SOCKET_TCP_BUFFER];
-	MessageHead * pHead = (MessageHead *)cbDataBuffer;
-    pHead->size = dataSize + sizeof(MessageHead);
-	pHead->main = main;
-	pHead->sub = sub;
-	if (dataSize > 0)
-	{
-		memcpy(&cbDataBuffer[sizeof(MessageHead)], data, dataSize);
-	}
-    cocos2d::log("CSocketEngine send size:%d, main:%d, sub:%d, data:%s", dataSize, pHead->main, pHead->sub, data);
-	mSocket.send((const char*)cbDataBuffer, pHead->size);
+	MessageHead pHead;
+    pHead.size = dataSize + sizeof(MessageHead);
+	pHead.main = main;
+	pHead.sub = sub;
+    
+    cocos2d::log("CSocketEngine send size:%d, main:%d, sub:%d, data:%s", pHead.size, pHead.main, pHead.sub, data);
+    
+    mSocket.send((const char*)&pHead, sizeof(MessageHead));
+    if(dataSize > 0)
+        mSocket.send((const char*)data, dataSize);
 	return true;
 }
 
@@ -166,6 +166,7 @@ void CSocketEngine::onSocketError(int errorCode)
 
 void CSocketEngine::onSocketData(void* data, int dataSize)
 {
+    
 	static byte cbBufRecieve[SIZE_TCP_BUFFER];
 	int nRecvSize = 0;
 
@@ -196,12 +197,6 @@ void CSocketEngine::onSocketData(void* data, int dataSize)
 	while (nRecvSize >= sizeof(TCP_Head))
 	{
 		wPacketSize = pHead->TCPInfo.wPacketSize;
-
-		if (pHead->TCPInfo.cbDataKind != DK_ENCRYPT)
-		{
-			disconnect();
-			return;
-		}
 				
 		if (wPacketSize > (SOCKET_TCP_PACKET + sizeof(TCP_Head)))
 		{
@@ -223,41 +218,25 @@ void CSocketEngine::onSocketData(void* data, int dataSize)
 		nRecvSize -= wPacketSize;
 		memmove(cbBufRecieve, cbBufRecieve + wPacketSize, nRecvSize);
 
-		//解密数据
-		unsigned short wRealySize = CrevasseBuffer(cbDataBuffer, wPacketSize);
-		if (wRealySize < sizeof(TCP_Head))
-		{
-			return;
-		}
-
 		//解释数据
-		unsigned short wDataSize = wRealySize - sizeof(TCP_Head);
 		void * pDataBuffer = cbDataBuffer + sizeof(TCP_Head);
 		TCP_Command Command = ((TCP_Head *)cbDataBuffer)->CommandInfo;
 
-		if (Command.wMainCmdID == MDM_KN_COMMAND && Command.wSubCmdID == SUB_KN_DETECT_SOCKET)
+        CCLOG("onSocketData wPacketSize:%d, wMainCmdID:%d, wSubCmdID:%d, json:%s", wPacketSize,Command.wMainCmdID, Command.wSubCmdID,pDataBuffer);
+        
+        if(Command.wMainCmdID == 2000){
+            send(2001, 0, NULL, 0);
+        }else if (mISocketEngineSink != 0)
 		{
-			send(MDM_KN_COMMAND, SUB_KN_DETECT_SOCKET, pDataBuffer, wDataSize);
-			if (mISocketEngineSink)
-			{
-				mISocketEngineSink->onEventTCPHeartTick();
-			}
-			continue;
-		}
-		else
-		{
-			cocos2d::log("REV- --main command---- %d -- Sub Command ----%d---\n", Command.wMainCmdID, Command.wSubCmdID);
-		}
-		if (mISocketEngineSink != 0)
-		{
-			bool bHandle = mISocketEngineSink->onEventTCPSocketRead(Command.wMainCmdID, Command.wSubCmdID, pDataBuffer, wPacketSize - 8);
-
-			if (!bHandle)
-			{
-				CCASSERT(false,"");
-				disconnect();
-				return;
-			}
+            try {
+                
+                std::vector<char> vec1((char*)pDataBuffer, (char*)pDataBuffer + wPacketSize - 8);
+                auto pData = json::parse(vec1);
+                bool bHandle = mISocketEngineSink->onEventTCPSocketRead(Command.wMainCmdID, Command.wSubCmdID, (void*)&pData, 0);
+                
+            } catch (std::exception& e) {
+                CCLOG("json parse error:%s", e.what());
+            }
 		}
 	}
 }
@@ -279,21 +258,6 @@ void CSocketEngine::sendTCPValidate()
 		ss << mBufPack[i] << ",";
 	}
 	mSocket.send(ss.str().c_str(), (int)ss.str().size());
-}
-
-const byte* CSocketEngine::pack(int main, int sub, byte* data, int size)
-{
-	mBufPack[0]=0;
-	int packsize = SIZE_PACK_HEAD + size;
-	QPCipher::setPackInfo(mBufPack, packsize, main, sub);
-
-	// 赋值
-	if (size > 0) {
-		memcpy(&mBufPack[SIZE_PACK_HEAD], data, size);
-	}
-	// 加密数据
-	QPCipher::encryptBuffer(mBufPack, packsize);
-	return mBufPack;
 }
 
 bool CSocketEngine::unpack(byte* data, int start, int length)

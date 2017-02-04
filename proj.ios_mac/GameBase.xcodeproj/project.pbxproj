@@ -854,6 +854,7 @@
 		513874981D0C0A2800A2F16C /* ToolsHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsHeader.h; sourceTree = "<group>"; };
 		521A8E6219F0C34300D177D7 /* Default-667h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-667h@2x.png"; sourceTree = "<group>"; };
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
+		810C889A1E45A3EF00EFAB05 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		8157B8211E2E1EB00045EE51 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		8157B8231E2E1EE70045EE51 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8157B8251E2E1EF20045EE51 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.1.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
@@ -1544,6 +1545,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				810C88991E45A3EF00EFAB05 /* Json */,
 				8157C8DC1E2E251E0045EE51 /* IosApi */,
 				513873841D0C0A2700A2F16C /* GameLib */,
 				46880B8319C43A87006E1F66 /* Classes */,
@@ -1884,6 +1886,15 @@
 				513874971D0C0A2800A2F16C /* Convert.h */,
 			);
 			path = tools;
+			sourceTree = "<group>";
+		};
+		810C88991E45A3EF00EFAB05 /* Json */ = {
+			isa = PBXGroup;
+			children = (
+				810C889A1E45A3EF00EFAB05 /* json.hpp */,
+			);
+			name = Json;
+			path = ../GameLib/Json;
 			sourceTree = "<group>";
 		};
 		8157C8771E2E220D0045EE51 /* ClientHN_THJ */ = {
